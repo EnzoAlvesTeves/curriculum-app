@@ -1,3 +1,81 @@
 <resources>
     <string name="app_name">CurriculumApp</string>
+    <string name="curriculum">Curriculum</string>
+    <string name="login">Login</string>
+    <string name="email">E-mail</string>
+    <string name="email_hint">Digite seu e-mail</string>
+    <string name="senha">Senha</string>
+    <string name="senha_hint">Digite sua senha</string>
+    <string name="entrar">Entrar</string>
+    <string name="esqueci_senha">Esqueci minha senha</string>
+    <string name="cadastre_se">Cadastre-se</string>
+    <string name="divider">|</string>
+    <string name="home">Home</string>
+    <string name="candidatos">Candidatos</string>
+    <string name="vagas">Vagas</string>
+    <string name="perfil">Perfil</string>
+
+    <string name="buscar_candidatos">Buscar Candidatos</string>
+    <string name="buscar_desc">Encontre e filtre candidatos por experiência</string>
+    <string name="cadastrar_candidato">Cadastrar Candidato</string>
+    <string name="cadastrar_desc">Cadastre novos candidatos na plataforma.</string>
+    <string name="vagas_recentes">Vagas Recentes</string>
+    <string name="aberto">Aberto</string>
+    <string name="fechado">Fechado</string>
+    <string name="pendente">Pendente</string>
+    <string name="vagas_count">%1$dVagas</string>
+    <string name="candidatos_count">%1$d Candidatos</string>
+
+    <!-- Informações Pessoais -->
+    <string name="informacoes_pessoais">Informações Pessoais</string>
+    <string name="nome_completo">Nome Completo:</string>
+    <string name="nome_hint">Digite o nome completo</string>
+    <string name="sexo">Sexo:</string>
+    <string name="telefone">Telefone:</string>
+    <string name="telefone_hint">(00) 00000-0000</string>
+    <string name="data_nascimento">Data de Nascimento:</string>
+    <string name="data_hint">dd / mm / aaaa</string>
+    <string name="salvar_candidato">Salvar Candidato</string>
+
+    <!-- Endereço -->
+    <string name="endereco">Endereço</string>
+    <string name="cep">CEP:</string>
+    <string name="rua">Rua:</string>
+    <string name="numero">Número:</string>
+    <string name="bairro">Bairro:</string>
+
+    <!-- Experiência -->
+    <string name="experiencia">Experiência</string>
+    <string name="cargo">Cargo:</string>
+    <string name="cargo_hint">Ex: Desenvolvedor Java</string>
+    <string name="empresa">Empresa:</string>
+    <string name="empresa_hint">Nome da empresa</string>
+    <string name="data_inicio">Data Início:</string>
+    <string name="data_fim">Data Fim:</string>
+
+    <!-- Educação -->
+    <string name="educacao">Educação</string>
+    <string name="grau">Grau:</string>
+    <string name="grau_hint">Ex: Ensino Superior</string>
+    <string name="instituicao">Instituição:</string>
+    <string name="instituicao_hint">Nome da instituição</string>
+    <string name="curso">Curso:</string>
+    <string name="curso_hint">Ex: Sistemas de Informação</string>
+
+    <!-- Habilidades -->
+    <string name="habilidades">Habilidades</string>
+    <string name="descricao">Descrição:</string>
+    <string name="descricao_habilidade_hint">Ex: Java, React...</string>
+    <string name="nivel">Nível:</string>
+    <string name="especialidade">Especialidade:</string>
+    <string name="especialidade_hint">Ex: Backend</string>
+
+    <!-- Vagas -->
+    <string name="nenhuma_vaga">Nenhuma vaga encontrada</string>
+    <string name="nenhum_candidato">Nenhum candidato encontrado</string>
+
+    <!-- Perfil -->
+    <string name="editar_perfil">Editar Perfil</string>
+    <string name="sair">Sair</string>
+    <string name="membro_ha">Há %1$d anos</string>
 </resources>
