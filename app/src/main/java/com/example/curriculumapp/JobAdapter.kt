@@ -5,14 +5,18 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import com.example.curriculumapp.client.vaga.dto.VagaDTO
+import java.text.NumberFormat
+import java.util.*
 
-class JobAdapter(private var jobs: List<Job>) :
+class JobAdapter(private var jobs: List<VagaDTO>) :
     RecyclerView.Adapter<JobAdapter.JobViewHolder>() {
 
     class JobViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         val tvTitle: TextView = view.findViewById(R.id.tvJobTitle)
-        val tvCandidates: TextView = view.findViewById(R.id.tvCandidatesCount)
-        val tvStatus: TextView = view.findViewById(R.id.tvStatus)
+        val tvCompany: TextView = view.findViewById(R.id.tvCompany)
+        val tvSalary: TextView = view.findViewById(R.id.tvSalary)
+        val tvDescription: TextView = view.findViewById(R.id.tvDescription)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): JobViewHolder {
@@ -23,16 +27,18 @@ class JobAdapter(private var jobs: List<Job>) :
 
     override fun onBindViewHolder(holder: JobViewHolder, position: Int) {
         val job = jobs[position]
-        holder.tvTitle.text = job.title
-        holder.tvCandidates.text = "${job.candidatesCount} Candidatos"
-        holder.tvStatus.text = job.status
+        holder.tvTitle.text = job.titulo
+        holder.tvCompany.text = job.empresa
         
-        // Simple logic to change status color if needed, but keeping it orange as per image
+        val format = NumberFormat.getCurrencyInstance(Locale("pt", "BR"))
+        holder.tvSalary.text = "Salário: ${format.format(job.salario)}"
+        
+        holder.tvDescription.text = job.descricao
     }
 
     override fun getItemCount() = jobs.size
 
-    fun updateJobs(newJobs: List<Job>) {
+    fun updateJobs(newJobs: List<VagaDTO>) {
         this.jobs = newJobs
         notifyDataSetChanged()
     }

@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.util.Log
 import android.widget.Button
 import android.widget.EditText
+import android.widget.TextView
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
@@ -29,6 +30,7 @@ class LoginActivity : AppCompatActivity() {
         val btnEnter = findViewById<Button>(R.id.btnEnter)
         val etEmail = findViewById<EditText>(R.id.etEmail)
         val etPassword = findViewById<EditText>(R.id.etPassword)
+        val tvRegister = findViewById<TextView>(R.id.tvRegister)
 
         btnEnter.setOnClickListener {
             lifecycleScope.launch {
@@ -40,15 +42,18 @@ class LoginActivity : AppCompatActivity() {
 
                     Log.d("API_SUCCESS", "Usuário logado: $usuarioDTO")
                     
-                    // Se o login der certo, vai para a Home
                     val intent = Intent(this@LoginActivity, HomeActivity::class.java)
                     intent.putExtra("usuarioDTO", usuarioDTO)
-
                     startActivity(intent)
                 } catch (e: Exception) {
                     Log.e("API_ERROR", "Erro no login: ${e.message}")
                 }
             }
+        }
+
+        tvRegister.setOnClickListener {
+            val intent = Intent(this, RegisterActivity::class.java)
+            startActivity(intent)
         }
     }
 }
