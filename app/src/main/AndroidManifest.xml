@@ -24,6 +24,9 @@
             </intent-filter>
         </activity>
         <activity
+            android:name=".ForgotPasswordActivity"
+            android:exported="false" />
+        <activity
             android:name=".RegisterActivity"
             android:exported="false" />
         <activity
@@ -31,6 +34,10 @@
             android:exported="false" />
         <activity
             android:name=".CandidateRegistrationActivity"
+            android:exported="false"
+            android:windowSoftInputMode="adjustResize" />
+        <activity
+            android:name=".JobRegistrationActivity"
             android:exported="false"
             android:windowSoftInputMode="adjustResize" />
         <activity

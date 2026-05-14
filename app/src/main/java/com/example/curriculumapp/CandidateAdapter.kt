@@ -5,8 +5,9 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import com.example.curriculumapp.client.candidato.dto.CandidatoDTO
 
-class CandidateAdapter(private var candidates: List<Candidate>) :
+class CandidateAdapter(private var candidates: List<CandidatoDTO>) :
     RecyclerView.Adapter<CandidateAdapter.CandidateViewHolder>() {
 
     class CandidateViewHolder(view: View) : RecyclerView.ViewHolder(view) {
@@ -22,13 +23,14 @@ class CandidateAdapter(private var candidates: List<Candidate>) :
 
     override fun onBindViewHolder(holder: CandidateViewHolder, position: Int) {
         val candidate = candidates[position]
-        holder.tvName.text = candidate.name
-        holder.tvRole.text = candidate.role
+        holder.tvName.text = candidate.nome
+        // Pega o cargo da última experiência cadastrada, se houver
+        holder.tvRole.text = candidate.experiencias.lastOrNull()?.cargo ?: "Candidato"
     }
 
     override fun getItemCount() = candidates.size
 
-    fun updateCandidates(newCandidates: List<Candidate>) {
+    fun updateCandidates(newCandidates: List<CandidatoDTO>) {
         this.candidates = newCandidates
         notifyDataSetChanged()
     }

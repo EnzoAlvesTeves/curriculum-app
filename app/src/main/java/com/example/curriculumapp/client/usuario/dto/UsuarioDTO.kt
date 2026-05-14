@@ -6,5 +6,6 @@ data class UsuarioDTO(
     val id: Long? = null,
     val nome: String,
     val email: String,
-    val senha: String
+    val senha: String,
+    val isAdmin: Boolean = false
 ) : Serializable

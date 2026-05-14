@@ -15,10 +15,17 @@
     <string name="vagas">Vagas</string>
     <string name="perfil">Perfil</string>
 
+    <string name="recuperar_senha">Recuperar Senha</string>
+    <string name="instrucao_recuperar">Insira seu e-mail para receber as instruções de recuperação de senha.</string>
+    <string name="voltar_login">Voltar para o Login</string>
+    <string name="enviar">Enviar</string>
+
     <string name="buscar_candidatos">Buscar Candidatos</string>
     <string name="buscar_desc">Encontre e filtre candidatos por experiência</string>
     <string name="cadastrar_candidato">Cadastrar Candidato</string>
     <string name="cadastrar_desc">Cadastre novos candidatos na plataforma.</string>
+    <string name="cadastrar_vaga">Cadastrar Vaga</string>
+    <string name="cadastrar_vaga_desc">Publique novas oportunidades de emprego.</string>
     <string name="vagas_recentes">Vagas Recentes</string>
     <string name="aberto">Aberto</string>
     <string name="fechado">Fechado</string>
