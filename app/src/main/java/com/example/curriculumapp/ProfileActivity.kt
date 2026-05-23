@@ -33,11 +33,10 @@ class ProfileActivity : AppCompatActivity() {
     }
 
     private fun setupAdminUI() {
-        val isAdmin = usuarioDTO?.isAdmin ?: false
-        if (isAdmin) {
-            binding.navJobs.visibility = View.VISIBLE
+        if (sessionManager.isAdmin()) {
+            binding.navCurriculo.visibility = View.GONE
         } else {
-            binding.navJobs.visibility = View.GONE
+            binding.navCandidates.visibility = View.GONE
         }
     }
 
@@ -59,21 +58,24 @@ class ProfileActivity : AppCompatActivity() {
         binding.navHome.setOnClickListener {
             val intent = Intent(this, HomeActivity::class.java)
             intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_SINGLE_TOP
-            intent.putExtra("usuarioDTO", usuarioDTO)
+            startActivity(intent)
+            finish()
+        }
+
+        binding.navCurriculo.setOnClickListener {
+            val intent = Intent(this, CandidateRegistrationActivity::class.java)
             startActivity(intent)
             finish()
         }
 
         binding.navCandidates.setOnClickListener {
             val intent = Intent(this, CandidatesActivity::class.java)
-            intent.putExtra("usuarioDTO", usuarioDTO)
             startActivity(intent)
             finish()
         }
 
         binding.navJobs.setOnClickListener {
             val intent = Intent(this, JobsActivity::class.java)
-            intent.putExtra("usuarioDTO", usuarioDTO)
             startActivity(intent)
             finish()
         }

@@ -30,13 +30,24 @@ class JobsActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         sessionManager = SessionManager(this)
-        usuarioDTO = intent.getSerializableExtra("usuarioDTO") as? UsuarioDTO ?: sessionManager.getSession()
+        usuarioDTO = sessionManager.getSession()
 
         setupRecyclerView()
         setupBottomNavigation()
         setupClickListeners()
+        setupAdminUI()
 
         fetchJobs()
+    }
+
+    private fun setupAdminUI() {
+        if (sessionManager.isAdmin()) {
+            binding.cadastrarVaga.visibility = View.VISIBLE
+            binding.navCurriculo.visibility = View.GONE
+        } else {
+            binding.cadastrarVaga.visibility = View.GONE
+            binding.navCandidates.visibility = View.GONE
+        }
     }
 
     private fun fetchJobs() {
@@ -55,7 +66,7 @@ class JobsActivity : AppCompatActivity() {
     private fun setupRecyclerView() {
         adapter = JobAdapter(
             jobs = emptyList(),
-            isAdmin = usuarioDTO?.isAdmin ?: false,
+            isAdmin = sessionManager.isAdmin(),
             onApplyClick = { vaga -> handleApply(vaga) }
         )
         binding.rvJobs.layoutManager = LinearLayoutManager(this)
@@ -108,21 +119,24 @@ class JobsActivity : AppCompatActivity() {
         binding.navHome.setOnClickListener {
             val intent = Intent(this, HomeActivity::class.java)
             intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_SINGLE_TOP
-            intent.putExtra("usuarioDTO", usuarioDTO)
+            startActivity(intent)
+            finish()
+        }
+
+        binding.navCurriculo.setOnClickListener {
+            val intent = Intent(this, CandidateRegistrationActivity::class.java)
             startActivity(intent)
             finish()
         }
         
         binding.navCandidates.setOnClickListener {
             val intent = Intent(this, CandidatesActivity::class.java)
-            intent.putExtra("usuarioDTO", usuarioDTO)
             startActivity(intent)
             finish()
         }
 
         binding.navProfile.setOnClickListener {
             val intent = Intent(this, ProfileActivity::class.java)
-            intent.putExtra("usuarioDTO", usuarioDTO)
             startActivity(intent)
             finish()
         }
@@ -131,6 +145,11 @@ class JobsActivity : AppCompatActivity() {
     private fun setupClickListeners() {
         binding.ivBack.setOnClickListener {
             finish()
+        }
+        
+        binding.cardRegisterJob.setOnClickListener {
+            val intent = Intent(this, JobRegistrationActivity::class.java)
+            startActivity(intent)
         }
     }
 }

@@ -6,7 +6,11 @@ import com.example.curriculumapp.client.usuario.dto.UsuarioDTO
 import com.google.gson.Gson
 
 class SessionManager(context: Context) {
-    private val prefs: SharedPreferences = context.getSharedPreferences("curriculum_prefs", Context.MODE_PRIVATE)
+    private val prefs: SharedPreferences = context.getSharedPreferences(
+        "curriculum_prefs",
+        Context.MODE_PRIVATE
+    )
+
     private val gson = Gson()
 
     fun saveSession(usuario: UsuarioDTO) {

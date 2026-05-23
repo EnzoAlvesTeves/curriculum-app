@@ -26,9 +26,9 @@ class LoginActivity : AppCompatActivity() {
         sessionManager = SessionManager(this)
 
         // Verifica se já existe sessão ativa (Equivalente ao localStorage.getItem)
-        val sessaoAtiva = sessionManager.getSession()
-        if (sessaoAtiva != null) {
-            irParaHome(sessaoAtiva)
+        val usuarioLogado = sessionManager.getSession()
+        if (usuarioLogado != null) {
+            irParaHome(usuarioLogado)
             return
         }
 
@@ -41,11 +41,33 @@ class LoginActivity : AppCompatActivity() {
             insets
         }
 
+        setupListenerLogin()
+        setupListenerRegister()
+        setupListenerForgotPassword()
+    }
+
+    private fun setupListenerForgotPassword() {
+        val tvForgotPassword = findViewById<TextView>(R.id.tvForgotPassword)
+
+        tvForgotPassword.setOnClickListener {
+            val intent = Intent(this, ForgotPasswordActivity::class.java)
+            startActivity(intent)
+        }
+    }
+
+    private fun setupListenerRegister() {
+        val tvRegister = findViewById<TextView>(R.id.tvRegister)
+
+        tvRegister.setOnClickListener {
+            val intent = Intent(this, RegisterActivity::class.java)
+            startActivity(intent)
+        }
+    }
+
+    private fun setupListenerLogin() {
         val btnEnter = findViewById<Button>(R.id.btnEnter)
         val etEmail = findViewById<EditText>(R.id.etEmail)
         val etPassword = findViewById<EditText>(R.id.etPassword)
-        val tvRegister = findViewById<TextView>(R.id.tvRegister)
-        val tvForgotPassword = findViewById<TextView>(R.id.tvForgotPassword)
 
         btnEnter.setOnClickListener {
             val email = etEmail.text.toString()
@@ -56,44 +78,27 @@ class LoginActivity : AppCompatActivity() {
                 return@setOnClickListener
             }
 
-            // Validação de Admin (conforme requisito do projeto Web)
-            if (email == "admin@wisecorp.com" && password == "admin123") {
-                val adminUser = UsuarioDTO(
-                    nome = "Administrador",
-                    email = email,
-                    senha = password,
-                    isAdmin = true
-                )
-                sessionManager.saveSession(adminUser)
-                irParaHome(adminUser)
-                return@setOnClickListener
-            }
-
             lifecycleScope.launch {
                 try {
-                    val usuarioDTO = UsuarioClient.api.login(LoginDTO(
-                        email = email,
-                        senha = password
-                    ))
+                    val usuarioDTO = UsuarioClient.api.login(
+                        LoginDTO(
+                            email = email,
+                            senha = password
+                        )
+                    )
 
                     Log.d("API_SUCCESS", "Usuário logado: $usuarioDTO")
                     sessionManager.saveSession(usuarioDTO)
                     irParaHome(usuarioDTO)
                 } catch (e: Exception) {
                     Log.e("API_ERROR", "Erro no login: ${e.message}")
-                    Toast.makeText(this@LoginActivity, "E-mail ou senha incorretos", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(
+                        this@LoginActivity,
+                        "E-mail ou senha incorretos",
+                        Toast.LENGTH_SHORT
+                    ).show()
                 }
             }
-        }
-
-        tvRegister.setOnClickListener {
-            val intent = Intent(this, RegisterActivity::class.java)
-            startActivity(intent)
-        }
-
-        tvForgotPassword.setOnClickListener {
-            val intent = Intent(this, ForgotPasswordActivity::class.java)
-            startActivity(intent)
         }
     }
 

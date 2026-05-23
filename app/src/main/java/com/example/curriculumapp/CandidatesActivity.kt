@@ -31,7 +31,16 @@ class CandidatesActivity : AppCompatActivity() {
 
         setupRecyclerView()
         setupBottomNavigation()
+        setupAdminUI()
         fetchCandidates()
+    }
+
+    private fun setupAdminUI() {
+        if (sessionManager.isAdmin()) {
+            binding.navCurriculo.visibility = View.GONE
+        } else {
+            binding.navCandidates.visibility = View.GONE
+        }
     }
 
     private fun setupRecyclerView() {
@@ -68,21 +77,24 @@ class CandidatesActivity : AppCompatActivity() {
         binding.navHome.setOnClickListener {
             val intent = Intent(this, HomeActivity::class.java)
             intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_SINGLE_TOP
-            intent.putExtra("usuarioDTO", usuarioDTO)
+            startActivity(intent)
+            finish()
+        }
+
+        binding.navCurriculo.setOnClickListener {
+            val intent = Intent(this, CandidateRegistrationActivity::class.java)
             startActivity(intent)
             finish()
         }
 
         binding.navJobs.setOnClickListener {
             val intent = Intent(this, JobsActivity::class.java)
-            intent.putExtra("usuarioDTO", usuarioDTO)
             startActivity(intent)
             finish()
         }
 
         binding.navProfile.setOnClickListener {
             val intent = Intent(this, ProfileActivity::class.java)
-            intent.putExtra("usuarioDTO", usuarioDTO)
             startActivity(intent)
             finish()
         }

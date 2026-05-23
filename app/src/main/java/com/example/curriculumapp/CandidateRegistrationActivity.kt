@@ -1,8 +1,10 @@
 package com.example.curriculumapp
 
 import android.app.DatePickerDialog
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
+import android.view.View
 import android.widget.ArrayAdapter
 import android.widget.EditText
 import android.widget.Toast
@@ -33,6 +35,50 @@ class CandidateRegistrationActivity : AppCompatActivity() {
         setupSpinners()
         setupDatePickers()
         setupSaveButton()
+        setupClickListeners()
+        setupAdminUI()
+        setupBottomNavigation()
+    }
+
+    private fun setupAdminUI() {
+        if (sessionManager.isAdmin()) {
+            binding.navCurriculo.visibility = View.GONE
+        } else {
+            binding.navCandidates.visibility = View.GONE
+        }
+    }
+
+    private fun setupBottomNavigation() {
+        binding.navHome.setOnClickListener {
+            val intent = Intent(this, HomeActivity::class.java)
+            intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_SINGLE_TOP
+            startActivity(intent)
+            finish()
+        }
+
+        binding.navCandidates.setOnClickListener {
+            val intent = Intent(this, CandidatesActivity::class.java)
+            startActivity(intent)
+            finish()
+        }
+
+        binding.navJobs.setOnClickListener {
+            val intent = Intent(this, JobsActivity::class.java)
+            startActivity(intent)
+            finish()
+        }
+
+        binding.navProfile.setOnClickListener {
+            val intent = Intent(this, ProfileActivity::class.java)
+            startActivity(intent)
+            finish()
+        }
+    }
+
+    private fun setupClickListeners() {
+        binding.ivBack.setOnClickListener {
+            finish()
+        }
     }
 
     private fun getUsuarioFromIntent(): UsuarioDTO? {
