@@ -11,6 +11,7 @@ import com.example.curriculumapp.client.usuario.AuthClient
 import com.example.curriculumapp.client.usuario.dto.AuthLoginRequest
 import com.example.curriculumapp.databinding.ActivityLoginBinding
 import com.example.curriculumapp.util.TokenManager
+import com.example.curriculumapp.ui.forgotpassword.ForgotPasswordActivity
 import com.example.curriculumapp.ui.signup.SignUpActivity
 import kotlinx.coroutines.launch
 
@@ -47,8 +48,7 @@ class LoginActivity : AppCompatActivity() {
         }
 
         binding.tvForgotPassword.setOnClickListener {
-            // Navigate to Forgot Password (to be implemented)
-            Toast.makeText(this, "Esqueci minha senha", Toast.LENGTH_SHORT).show()
+            startActivity(Intent(this, ForgotPasswordActivity::class.java))
         }
     }
 

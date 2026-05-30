@@ -22,4 +22,8 @@
     <string name="sou_rh">Sou RH</string>
     <string name="cadastrar">Cadastrar</string>
     <string name="ja_tem_conta">Já tem uma conta? Faça Login</string>
+    <string name="alterar_senha">Alterar Senha</string>
+    <string name="nova_senha">Nova Senha</string>
+    <string name="hint_nova_senha">Digite a nova senha</string>
+    <string name="senha_alterada_sucesso">Senha alterada com sucesso!</string>
 </resources>
