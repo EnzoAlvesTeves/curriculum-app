@@ -1,3 +1,12 @@
 <resources>
     <string name="app_name">CurriculumApp</string>
+    <string name="curriculum">Curriculum</string>
+    <string name="login">Login</string>
+    <string name="email">E-mail</string>
+    <string name="hint_email">Digite seu e-mail</string>
+    <string name="senha">Senha</string>
+    <string name="hint_senha">Digite sua senha</string>
+    <string name="entrar">Entrar</string>
+    <string name="esqueci_senha">Esqueci minha senha</string>
+    <string name="cadastre_se">Cadastre-se</string>
 </resources>
