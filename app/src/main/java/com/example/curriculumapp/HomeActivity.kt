@@ -87,6 +87,14 @@ class HomeActivity : AppCompatActivity() {
 //    }
 
     private fun setupClickListeners() {
+        binding.btnViewJobsHero.setOnClickListener {
+            startActivity(Intent(this, JobsActivity::class.java))
+        }
+
+        binding.btnExploreJobsBottom.setOnClickListener {
+            startActivity(Intent(this, JobsActivity::class.java))
+        }
+
         // Bottom Navigation
         binding.navCurriculo.setOnClickListener {
             val intent = Intent(this, CandidateRegistrationActivity::class.java)

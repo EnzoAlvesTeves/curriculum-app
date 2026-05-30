@@ -85,4 +85,40 @@
     <string name="editar_perfil">Editar Perfil</string>
     <string name="sair">Sair</string>
     <string name="membro_ha">Há %1$d anos</string>
+    <!-- Home Page Web Mirror -->
+    <string name="home_hero_title">Conectamos talentos às melhores oportunidades</string>
+    <string name="home_hero_desc">A WiseCorp é a plataforma completa para gestão de currículos e vagas. Encontre seu próximo desafio profissional ou o candidato ideal para sua empresa.</string>
+    <string name="home_btn_vagas">Ver Vagas Disponíveis</string>
+
+    <string name="home_why_title">Por que escolher a Wise Corp?</string>
+    <string name="home_why_1_title">Gestão Completa de Currículos</string>
+    <string name="home_why_1_desc">Organize e gerencie perfis de forma eficiente.</string>
+    <string name="home_why_2_title">Vagas Diversificadas</string>
+    <string name="home_why_2_desc">Encontre oportunidades em diversas áreas de TI.</string>
+    <string name="home_why_3_title">Processo Simplificado</string>
+    <string name="home_why_3_desc">Candidaturas rápidas e acompanhamento contínuo.</string>
+    <string name="home_why_4_title">Empresas Confiáveis</string>
+    <string name="home_why_4_desc">Conectamos você às melhores empresas.</string>
+    <string name="home_why_5_title">Segurança e Privacidade</string>
+    <string name="home_why_5_desc">Suas informações sempre protegidas.</string>
+    <string name="home_why_6_title">Suporte Dedicado</string>
+    <string name="home_why_6_desc">Acompanhamento em todas as etapas.</string>
+
+    <string name="home_how_title">Como funciona</string>
+    <string name="home_how_1_title">Crie seu Perfil</string>
+    <string name="home_how_1_desc">Complete suas informações profissionais.</string>
+    <string name="home_how_2_title">Encontre Vagas</string>
+    <string name="home_how_2_desc">Explore oportunidades personalizadas.</string>
+    <string name="home_how_3_title">Candidate-se</string>
+    <string name="home_how_3_desc">Envie seu currículo com um clique.</string>
+
+    <string name="home_footer_banner_title">Pronto para dar o próximo passo na sua carreira?</string>
+    <string name="home_footer_banner_desc">Junte-se a milhares de profissionais que já encontraram novas oportunidades.</string>
+    <string name="home_btn_explorar">Explorar Vagas</string>
+    <string name="home_copyright">© 2023 WiseCorp. Todos os direitos reservados.</string>
+    <string name="wisecorp">WiseCorp</string>
+    <string name="logo_desc">Logo</string>
+    <string name="step_1">1</string>
+    <string name="step_2">2</string>
+    <string name="step_3">3</string>
 </resources>
