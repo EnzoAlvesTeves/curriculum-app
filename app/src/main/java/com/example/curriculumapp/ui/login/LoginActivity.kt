@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
+import com.example.curriculumapp.CurriculumApplication
 import com.example.curriculumapp.MainActivity
 import com.example.curriculumapp.client.usuario.AuthClient
 import com.example.curriculumapp.client.usuario.dto.AuthLoginRequest
@@ -15,14 +16,12 @@ import kotlinx.coroutines.launch
 class LoginActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityLoginBinding
-    private lateinit var tokenManager: TokenManager
+    private val tokenManager: TokenManager by lazy { CurriculumApplication.instance.tokenManager }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityLoginBinding.inflate(layoutInflater)
         setContentView(binding.root)
-
-        tokenManager = TokenManager(this)
 
         // Check if already logged in
         if (tokenManager.getAccessToken() != null) {

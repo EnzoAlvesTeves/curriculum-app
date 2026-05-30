@@ -13,4 +13,7 @@ interface AuthApi {
 
     @POST("api/auth/refresh")
     suspend fun refresh(@Body request: AuthRefreshTokenRequest): AuthTokenResponse
+
+    @POST("api/auth/refresh")
+    fun refreshSync(@Body request: AuthRefreshTokenRequest): retrofit2.Call<AuthTokenResponse>
 }

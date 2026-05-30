@@ -1,5 +1,6 @@
 package com.example.curriculumapp.client.usuario
 
+import com.example.curriculumapp.util.NetworkConfig
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
@@ -9,6 +10,7 @@ object AuthClient {
     val api: AuthApi by lazy {
         Retrofit.Builder()
             .baseUrl(BASE_URL)
+            .client(NetworkConfig.okHttpClient)
             .addConverterFactory(
                 GsonConverterFactory.create()
             )
