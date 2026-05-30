@@ -1,9 +1,22 @@
 package com.example.curriculumapp.client.vaga
 
-import com.example.curriculumapp.client.vaga.dto.*
-import retrofit2.http.*
+import com.example.curriculumapp.client.vaga.dto.CreateEmpresaRequest
+import com.example.curriculumapp.client.vaga.dto.EmpresaResponse
+import com.example.curriculumapp.client.vaga.dto.UpdateEmpresaRequest
+import retrofit2.http.Body
+import retrofit2.http.DELETE
+import retrofit2.http.GET
+import retrofit2.http.POST
+import retrofit2.http.PUT
+import retrofit2.http.Path
 
 interface EmpresaApi {
+
+    @POST("api/empresas")
+    suspend fun criar(@Body request: CreateEmpresaRequest): EmpresaResponse
+
+    @GET("api/empresas")
+    suspend fun listarTodas(): List<EmpresaResponse>
 
     @GET("api/empresas/{id}")
     suspend fun buscarPorId(@Path("id") id: Long): EmpresaResponse
@@ -14,9 +27,4 @@ interface EmpresaApi {
     @DELETE("api/empresas/{id}")
     suspend fun deletar(@Path("id") id: Long)
 
-    @GET("api/empresas")
-    suspend fun listarTodas(): List<EmpresaResponse>
-
-    @POST("api/empresas")
-    suspend fun salvar(@Body request: CreateEmpresaRequest): EmpresaResponse
 }

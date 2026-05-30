@@ -1,24 +1,32 @@
 package com.example.curriculumapp.client.vaga
 
-import com.example.curriculumapp.client.vaga.dto.*
-import retrofit2.http.*
+import com.example.curriculumapp.client.vaga.dto.CandidaturaResponse
+import com.example.curriculumapp.client.vaga.dto.CreateVagaRequest
+import com.example.curriculumapp.client.vaga.dto.UpdateVagaRequest
+import com.example.curriculumapp.client.vaga.dto.VagaResponse
+import retrofit2.http.Body
+import retrofit2.http.DELETE
+import retrofit2.http.GET
+import retrofit2.http.POST
+import retrofit2.http.PUT
+import retrofit2.http.Path
 
 interface VagaApi {
 
-    @GET("api/vagas")
-    suspend fun listarTodas(): List<VagaResponse>
-
     @POST("api/vagas")
-    suspend fun salvar(@Body request: CreateVagaRequest): VagaResponse
+    suspend fun criar(@Body request: CreateVagaRequest): VagaResponse
 
     @PUT("api/vagas/{id}")
     suspend fun atualizar(@Path("id") id: Long, @Body request: UpdateVagaRequest): VagaResponse
 
-    @GET("api/vagas/{id}")
-    suspend fun buscarPorId(@Path("id") id: Long): VagaResponse
-
     @DELETE("api/vagas/{id}")
     suspend fun deletar(@Path("id") id: Long)
+
+    @GET("api/vagas/empresa/{idEmpresa}")
+    suspend fun buscarPorEmpresa(@Path("idEmpresa") idEmpresa: Long): List<VagaResponse>
+
+    @GET("api/vagas/minhas-criadas")
+    suspend fun buscarMinhasVagasCriadas(): List<VagaResponse>
 
     @POST("api/vagas/{idVaga}/candidaturas")
     suspend fun candidatar(@Path("idVaga") idVaga: Long): CandidaturaResponse
@@ -26,12 +34,7 @@ interface VagaApi {
     @DELETE("api/vagas/{idVaga}/candidaturas")
     suspend fun removerCandidatura(@Path("idVaga") idVaga: Long)
 
-    @GET("api/vagas/minhas-criadas")
-    suspend fun listarMinhasVagasCriadas(): List<VagaResponse>
-
     @GET("api/vagas/minhas-candidaturas")
-    suspend fun listarMinhasCandidaturas(): List<VagaResponse>
+    suspend fun buscarMinhasCandidaturas(): List<VagaResponse>
 
-    @GET("api/vagas/empresa/{idEmpresa}")
-    suspend fun listarVagasPorEmpresa(@Path("idEmpresa") idEmpresa: Long): List<VagaResponse>
 }
