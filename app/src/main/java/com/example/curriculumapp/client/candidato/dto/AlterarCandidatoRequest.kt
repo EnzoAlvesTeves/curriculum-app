@@ -2,7 +2,7 @@ package com.example.curriculumapp.client.candidato.dto
 
 import java.io.Serializable
 
-data class CandidatoDTO(
+data class AlterarCandidatoRequest(
     val id: Long? = null,
     val idUsuario: Long? = null,
     val nome: String? = null,
@@ -10,9 +10,5 @@ data class CandidatoDTO(
     val sexo: String? = null,
     val telefone: String? = null,
     val dataNascimento: String? = null,
-    val resumoProfissional: String? = null,
-    val endereco: EnderecoDTO? = null,
-    val educacoes: List<EducacaoDTO> = emptyList(),
-    val experiencias: List<ExperienciaDTO> = emptyList(),
-    val habilidades: List<HabilidadeDTO> = emptyList()
+    val resumoProfissional: String? = null
 ) : Serializable

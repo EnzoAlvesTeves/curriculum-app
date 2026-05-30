@@ -1,18 +1,29 @@
 package com.example.curriculumapp.client.candidato
 
-import com.example.curriculumapp.client.candidato.dto.CandidatoDTO
+import com.example.curriculumapp.client.candidato.dto.ExperienciaDTO
 import retrofit2.http.*
 
 interface ExperienciaApi {
-    @PUT("/exeprencias")
-    suspend fun atualizar(@Body candidatoDTO: CandidatoDTO): CandidatoDTO
 
-    @POST("/exeprencias")
-    suspend fun salvar(@Body candidatoDTO: CandidatoDTO): CandidatoDTO
+    @PUT("api/candidatos/{candidatoId}/experiencias/{experienciaId}")
+    suspend fun atualizar(
+        @Path("candidatoId") candidatoId: Long,
+        @Path("experienciaId") experienciaId: Long,
+        @Body experienciaDTO: ExperienciaDTO
+    ): ExperienciaDTO
 
-    @GET("/experencias/candidato/{candidatoId}")
-    suspend fun buscarPorId(@Path("id") id: Int): CandidatoDTO
+    @DELETE("api/candidatos/{candidatoId}/experiencias/{experienciaId}")
+    suspend fun deletar(
+        @Path("candidatoId") candidatoId: Long,
+        @Path("experienciaId") experienciaId: Long
+    )
 
-    @DELETE("/experencias/{experienciaId}")
-    suspend fun deletar(@Path("id") id: Int)
+    @GET("api/candidatos/{candidatoId}/experiencias")
+    suspend fun listar(@Path("candidatoId") candidatoId: Long): List<ExperienciaDTO>
+
+    @POST("api/candidatos/{candidatoId}/experiencias")
+    suspend fun salvar(
+        @Path("candidatoId") candidatoId: Long,
+        @Body experienciaDTO: ExperienciaDTO
+    ): ExperienciaDTO
 }

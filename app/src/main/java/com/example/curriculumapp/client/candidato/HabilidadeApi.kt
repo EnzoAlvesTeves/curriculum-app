@@ -1,18 +1,29 @@
 package com.example.curriculumapp.client.candidato
 
-import com.example.curriculumapp.client.candidato.dto.CandidatoDTO
+import com.example.curriculumapp.client.candidato.dto.HabilidadeDTO
 import retrofit2.http.*
 
 interface HabilidadeApi {
-    @PUT("/habilidades")
-    suspend fun atualizar(@Body candidatoDTO: CandidatoDTO): CandidatoDTO
 
-    @POST("/habilidades")
-    suspend fun salvar(@Body candidatoDTO: CandidatoDTO): CandidatoDTO
+    @PUT("api/candidatos/{candidatoId}/habilidades/{habilidadeId}")
+    suspend fun atualizar(
+        @Path("candidatoId") candidatoId: Long,
+        @Path("habilidadeId") habilidadeId: Long,
+        @Body habilidadeDTO: HabilidadeDTO
+    ): HabilidadeDTO
 
-    @GET("/habilidades/candidato/{candidatoId}")
-    suspend fun buscarPorId(@Path("id") id: Int): CandidatoDTO
+    @DELETE("api/candidatos/{candidatoId}/habilidades/{habilidadeId}")
+    suspend fun deletar(
+        @Path("candidatoId") candidatoId: Long,
+        @Path("habilidadeId") habilidadeId: Long
+    )
 
-    @DELETE("/habilidades/{experienciaId}")
-    suspend fun deletar(@Path("id") id: Int)
+    @GET("api/candidatos/{candidatoId}/habilidades")
+    suspend fun listar(@Path("candidatoId") candidatoId: Long): List<HabilidadeDTO>
+
+    @POST("api/candidatos/{candidatoId}/habilidades")
+    suspend fun salvar(
+        @Path("candidatoId") candidatoId: Long,
+        @Body habilidadeDTO: HabilidadeDTO
+    ): HabilidadeDTO
 }

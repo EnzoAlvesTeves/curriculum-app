@@ -1,30 +1,31 @@
 package com.example.curriculumapp.client.usuario
 
-import com.example.curriculumapp.client.usuario.dto.LoginDTO
-import com.example.curriculumapp.client.usuario.dto.UsuarioDTO
-import retrofit2.http.Body
-import retrofit2.http.DELETE
-import retrofit2.http.GET
-import retrofit2.http.POST
-import retrofit2.http.PUT
-import retrofit2.http.Path
+import com.example.curriculumapp.client.usuario.dto.*
+import retrofit2.http.*
 
 interface UsuarioApi {
-    @PUT("/usuarios")
-    suspend fun update(@Body usuarioDTO: UsuarioDTO): UsuarioDTO
 
-    @POST("/usuarios")
-    suspend fun create(@Body usuarioDTO: UsuarioDTO): UsuarioDTO
+    @GET("api/usuarios/{id}")
+    suspend fun findById(@Path("id") id: Long): UsuarioResponse
 
-    @POST("/usuarios/login")
-    suspend fun login(@Body loginDTO: LoginDTO): UsuarioDTO
+    @PUT("api/usuarios/{id}")
+    suspend fun update(@Path("id") id: Long, @Body request: UpdateUsuarioRequest): UsuarioResponse
 
-    @GET("/usuarios/{id}")
-    suspend fun findById(@Path("id") id: Long): UsuarioDTO
-
-    @DELETE("/usuarios/{id}")
+    @DELETE("api/usuarios/{id}")
     suspend fun delete(@Path("id") id: Long)
 
-    @GET("/usuarios/email/{email}")
-    suspend fun findAll(): List<UsuarioDTO>
+    @GET("api/usuarios")
+    suspend fun findAll(): List<UsuarioResponse>
+
+    @POST("api/usuarios")
+    suspend fun create(@Body request: CreateUsuarioRequest): UsuarioResponse
+
+    @PATCH("api/usuarios/senha/username")
+    suspend fun alterarSenhaPorUsername(@Body request: AlterarSenhaPorUsernameRequest)
+
+    @PATCH("api/usuarios/me/senha")
+    suspend fun alterarPropriaSenha(@Body request: AlterarSenhaRequest)
+
+    @GET("api/usuarios/me")
+    suspend fun getMe(): UsuarioResponse
 }
