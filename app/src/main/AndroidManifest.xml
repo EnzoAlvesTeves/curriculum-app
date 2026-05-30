@@ -37,6 +37,34 @@
             android:exported="false" />
 
         <activity
+            android:name=".ui.empresa.CreateEmpresaActivity"
+            android:exported="false" />
+
+        <activity
+            android:name=".ui.empresa.ListEmpresasActivity"
+            android:exported="false" />
+
+        <activity
+            android:name=".ui.vaga.CreateVagaActivity"
+            android:exported="false" />
+
+        <activity
+            android:name=".ui.vaga.ListVagasActivity"
+            android:exported="false" />
+
+        <activity
+            android:name=".ui.candidato.VagasPublicasActivity"
+            android:exported="false" />
+
+        <activity
+            android:name=".ui.candidato.CurriculoActivity"
+            android:exported="false" />
+
+        <activity
+            android:name=".ui.candidato.MinhasCandidaturasActivity"
+            android:exported="false" />
+
+        <activity
             android:name=".MainActivity"
             android:exported="false" />
 

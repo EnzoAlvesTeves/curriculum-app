@@ -7,16 +7,31 @@
     android:background="@color/primary_orange"
     android:padding="16dp">
 
+    <ImageButton
+        android:id="@+id/btnHeaderMenu"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:background="?attr/selectableItemBackgroundBorderless"
+        android:contentDescription="Menu"
+        android:padding="4dp"
+        android:scaleType="centerInside"
+        android:src="@drawable/ic_menu_hamburger"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:tint="@color/white" />
+
     <TextView
         android:id="@+id/tvHeaderName"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:layout_marginStart="12dp"
         android:layout_marginEnd="16dp"
         android:textColor="@color/white"
         android:textSize="22sp"
         android:textStyle="bold"
-        app:layout_constraintEnd_toStartOf="@+id/btnHeaderProfile"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/btnHeaderMenu"
         app:layout_constraintTop_toTopOf="parent"
         tools:text="Guilherme" />
 
@@ -27,37 +42,8 @@
         android:textColor="@color/white"
         android:textSize="14sp"
         app:layout_constraintEnd_toEndOf="@+id/tvHeaderName"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintStart_toStartOf="@id/tvHeaderName"
         app:layout_constraintTop_toBottomOf="@id/tvHeaderName"
         tools:text="guilherme.lopes@email.com" />
-
-    <ImageButton
-        android:id="@+id/btnHeaderProfile"
-        android:layout_width="40dp"
-        android:layout_height="40dp"
-        android:layout_marginEnd="8dp"
-        android:background="?attr/selectableItemBackgroundBorderless"
-        android:contentDescription="@string/meu_perfil"
-        android:padding="4dp"
-        android:scaleType="centerInside"
-        android:src="@drawable/ic_profile_header"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/btnHeaderLogout"
-        app:layout_constraintTop_toTopOf="parent"
-        app:tint="@color/white" />
-
-    <ImageButton
-        android:id="@+id/btnHeaderLogout"
-        android:layout_width="40dp"
-        android:layout_height="40dp"
-        android:background="?attr/selectableItemBackgroundBorderless"
-        android:contentDescription="@string/sair"
-        android:padding="4dp"
-        android:scaleType="centerInside"
-        android:src="@drawable/ic_logout_header"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:tint="@color/white" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <group android:id="@+id/group_rh" android:visible="false">
+        <item
+            android:id="@+id/nav_cadastrar_empresa"
+            android:icon="@drawable/ic_nav_add"
+            android:title="@string/cadastrar_empresa" />
+        <item
+            android:id="@+id/nav_minhas_empresas"
+            android:icon="@drawable/ic_nav_list"
+            android:title="@string/minhas_empresas" />
+        <item
+            android:id="@+id/nav_cadastrar_vaga"
+            android:icon="@drawable/ic_nav_add"
+            android:title="@string/cadastrar_vaga" />
+        <item
+            android:id="@+id/nav_minhas_vagas"
+            android:icon="@drawable/ic_nav_list"
+            android:title="@string/minhas_vagas" />
+    </group>
+
+    <group android:id="@+id/group_candidato" android:visible="false">
+        <item
+            android:id="@+id/nav_vagas_candidato"
+            android:icon="@drawable/ic_nav_vagas"
+            android:title="@string/vagas" />
+        <item
+            android:id="@+id/nav_curriculo"
+            android:icon="@drawable/ic_nav_curriculo"
+            android:title="@string/curriculo" />
+        <item
+            android:id="@+id/nav_minhas_candidaturas"
+            android:icon="@drawable/ic_nav_candidaturas"
+            android:title="@string/minhas_candidaturas" />
+    </group>
+
+    <group android:id="@+id/group_common">
+        <item
+            android:id="@+id/nav_home"
+            android:icon="@drawable/ic_nav_home"
+            android:title="@string/home" />
+        <item
+            android:id="@+id/nav_profile"
+            android:icon="@drawable/ic_profile_header"
+            android:title="@string/meu_perfil" />
+        <item
+            android:id="@+id/nav_logout"
+            android:icon="@drawable/ic_logout_header"
+            android:title="@string/sair" />
+    </group>
+</menu>

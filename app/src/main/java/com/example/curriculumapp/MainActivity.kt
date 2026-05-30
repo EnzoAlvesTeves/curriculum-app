@@ -15,6 +15,9 @@ class MainActivity : BaseActivity() {
 
         // Setup the common header
         setupHeader(binding.header)
+        
+        // Setup the side menu (Drawer)
+        setupDrawer(binding.drawerLayout, binding.navigationView)
     }
 
     override fun onResume() {

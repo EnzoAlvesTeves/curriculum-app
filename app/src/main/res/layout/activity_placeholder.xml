@@ -8,28 +8,25 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="#F5F5F5"
         android:orientation="vertical">
 
         <include
             android:id="@+id/header"
             layout="@layout/include_header" />
 
-        <androidx.constraintlayout.widget.ConstraintLayout
+        <FrameLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
             <TextView
+                android:id="@+id/tvTitle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Conteúdo da Home em breve..."
+                android:layout_gravity="center"
+                android:text="Em desenvolvimento"
                 android:textColor="#B0BEC5"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-
-        </androidx.constraintlayout.widget.ConstraintLayout>
+                android:textSize="20sp" />
+        </FrameLayout>
     </LinearLayout>
 
     <com.google.android.material.navigation.NavigationView

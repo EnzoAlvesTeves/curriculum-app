@@ -37,4 +37,12 @@
     <string name="hint_senha_atual">Digite sua senha atual</string>
     <string name="perfil_atualizado">Perfil atualizado com sucesso!</string>
     <string name="usuario_deletado">Usuário deletado com sucesso.</string>
+    <string name="cadastrar_empresa">Cadastrar Empresa</string>
+    <string name="minhas_empresas">Minhas Empresas</string>
+    <string name="cadastrar_vaga">Cadastrar Vaga</string>
+    <string name="minhas_vagas">Minhas Vagas</string>
+    <string name="home">Home</string>
+    <string name="vagas">Vagas</string>
+    <string name="curriculo">Currículo</string>
+    <string name="minhas_candidaturas">Minhas Candidaturas</string>
 </resources>
