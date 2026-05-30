@@ -11,9 +11,11 @@ import com.example.curriculumapp.client.usuario.AuthClient
 import com.example.curriculumapp.client.usuario.dto.AuthLoginRequest
 import com.example.curriculumapp.databinding.ActivityLoginBinding
 import com.example.curriculumapp.util.TokenManager
+import com.example.curriculumapp.ui.signup.SignUpActivity
 import kotlinx.coroutines.launch
 
 class LoginActivity : AppCompatActivity() {
+// ... (omitted lines for brevity if I were doing partial, but I'll do a focused replace)
 
     private lateinit var binding: ActivityLoginBinding
     private val tokenManager: TokenManager by lazy { CurriculumApplication.instance.tokenManager }
@@ -41,8 +43,7 @@ class LoginActivity : AppCompatActivity() {
         }
 
         binding.tvSignUp.setOnClickListener {
-            // Navigate to Sign Up (to be implemented)
-            Toast.makeText(this, "Ir para Cadastro", Toast.LENGTH_SHORT).show()
+            startActivity(Intent(this, SignUpActivity::class.java))
         }
 
         binding.tvForgotPassword.setOnClickListener {

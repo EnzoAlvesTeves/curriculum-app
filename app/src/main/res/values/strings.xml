@@ -9,4 +9,17 @@
     <string name="entrar">Entrar</string>
     <string name="esqueci_senha">Esqueci minha senha</string>
     <string name="cadastre_se">Cadastre-se</string>
+    <string name="cadastro">Cadastro</string>
+    <string name="nome">Nome</string>
+    <string name="hint_nome">Digite seu nome</string>
+    <string name="sobrenome">Sobrenome</string>
+    <string name="hint_sobrenome">Digite seu sobrenome</string>
+    <string name="telefone">Telefone</string>
+    <string name="hint_telefone">Digite seu telefone</string>
+    <string name="confirmar_senha">Confirmar Senha</string>
+    <string name="hint_confirmar_senha">Confirme sua senha</string>
+    <string name="sou_candidato">Sou Candidato</string>
+    <string name="sou_rh">Sou RH</string>
+    <string name="cadastrar">Cadastrar</string>
+    <string name="ja_tem_conta">Já tem uma conta? Faça Login</string>
 </resources>
