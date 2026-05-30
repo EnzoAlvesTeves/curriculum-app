@@ -1,11 +1,24 @@
 package com.example.curriculumapp
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import com.example.curriculumapp.databinding.ActivityMainBinding
+import com.example.curriculumapp.ui.base.BaseActivity
 
-class MainActivity : AppCompatActivity() {
+class MainActivity : BaseActivity() {
+
+    private lateinit var binding: ActivityMainBinding
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
+        binding = ActivityMainBinding.inflate(layoutInflater)
+        setContentView(binding.root)
+
+        // Setup the common header
+        setupHeader(binding.header)
+    }
+
+    override fun onResume() {
+        super.onResume()
+        loadHeaderData()
     }
 }
