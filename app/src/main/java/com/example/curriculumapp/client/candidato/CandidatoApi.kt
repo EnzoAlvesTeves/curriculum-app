@@ -2,19 +2,24 @@ package com.example.curriculumapp.client.candidato
 
 import com.example.curriculumapp.client.candidato.dto.AlterarCandidatoRequest
 import com.example.curriculumapp.client.candidato.dto.CandidatoDTO
-import retrofit2.http.*
+import retrofit2.http.Body
+import retrofit2.http.DELETE
+import retrofit2.http.GET
+import retrofit2.http.POST
+import retrofit2.http.PUT
+import retrofit2.http.Path
 
 interface CandidatoApi {
 
     @PUT("api/candidatos")
-    suspend fun atualizar(@Body request: AlterarCandidatoRequest): CandidatoDTO
+    suspend fun alterar(@Body request: AlterarCandidatoRequest): CandidatoDTO
 
     @POST("api/candidatos")
-    suspend fun salvar(@Body candidatoDTO: CandidatoDTO): CandidatoDTO
-
-    @DELETE("api/candidatos")
-    suspend fun deletar()
+    suspend fun criar(@Body candidatoDTO: CandidatoDTO): CandidatoDTO
 
     @GET("api/candidatos/{candidatoId}")
     suspend fun buscarPorId(@Path("candidatoId") candidatoId: Long): CandidatoDTO
+
+    @DELETE("api/candidatos")
+    suspend fun deletar()
 }

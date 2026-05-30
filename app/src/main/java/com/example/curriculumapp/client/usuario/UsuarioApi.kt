@@ -1,7 +1,17 @@
 package com.example.curriculumapp.client.usuario
 
-import com.example.curriculumapp.client.usuario.dto.*
-import retrofit2.http.*
+import com.example.curriculumapp.client.usuario.dto.AlterarSenhaPorUsernameRequest
+import com.example.curriculumapp.client.usuario.dto.AlterarSenhaRequest
+import com.example.curriculumapp.client.usuario.dto.CreateUsuarioRequest
+import com.example.curriculumapp.client.usuario.dto.UpdateUsuarioRequest
+import com.example.curriculumapp.client.usuario.dto.UsuarioResponse
+import retrofit2.http.Body
+import retrofit2.http.DELETE
+import retrofit2.http.GET
+import retrofit2.http.PATCH
+import retrofit2.http.POST
+import retrofit2.http.PUT
+import retrofit2.http.Path
 
 interface UsuarioApi {
 

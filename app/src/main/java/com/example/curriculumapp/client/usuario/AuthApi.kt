@@ -1,6 +1,8 @@
 package com.example.curriculumapp.client.usuario
 
-import com.example.curriculumapp.client.usuario.dto.*
+import com.example.curriculumapp.client.usuario.dto.AuthLoginRequest
+import com.example.curriculumapp.client.usuario.dto.AuthRefreshTokenRequest
+import com.example.curriculumapp.client.usuario.dto.AuthTokenResponse
 import retrofit2.http.Body
 import retrofit2.http.POST
 

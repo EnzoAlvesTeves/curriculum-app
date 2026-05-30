@@ -4,7 +4,7 @@ import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
 object EnderecoClient {
-    private const val BASE_URL = "http://10.0.2.2:8000/"
+    private const val BASE_URL = "http://10.0.2.2:8000/ms-curriculum"
 
     val api: EnderecoApi by lazy {
         Retrofit.Builder()
