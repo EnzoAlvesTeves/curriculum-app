@@ -45,6 +45,10 @@
             android:exported="false" />
 
         <activity
+            android:name=".ui.empresa.EditEmpresaActivity"
+            android:exported="false" />
+
+        <activity
             android:name=".ui.vaga.CreateVagaActivity"
             android:exported="false" />
 
