@@ -45,4 +45,9 @@
     <string name="vagas">Vagas</string>
     <string name="curriculo">Currículo</string>
     <string name="minhas_candidaturas">Minhas Candidaturas</string>
+    <string name="tab_perfil">Perfil</string>
+    <string name="tab_senha">Senha</string>
+    <string name="tab_conta">Conta</string>
+    <string name="deletar">Deletar</string>
+    <string name="cancelar">Cancelar</string>
 </resources>
