@@ -40,6 +40,7 @@ class EnderecoFragment : Fragment() {
     private fun fillFields(e: EnderecoDTO) {
         binding.etCep.setText(e.cep)
         binding.etRua.setText(e.rua)
+        binding.etComplemento.setText(e.complemento)
         binding.etNumero.setText(e.numero)
         binding.etBairro.setText(e.bairro)
         binding.etCidade.setText(e.cidade)
@@ -53,6 +54,7 @@ class EnderecoFragment : Fragment() {
         val updatedEndereco = EnderecoDTO(
             cep = binding.etCep.text.toString(),
             rua = binding.etRua.text.toString(),
+            complemento = binding.etComplemento.text.toString(),
             numero = binding.etNumero.text.toString(),
             bairro = binding.etBairro.text.toString(),
             cidade = binding.etCidade.text.toString(),
