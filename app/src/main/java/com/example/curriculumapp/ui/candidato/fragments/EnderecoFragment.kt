@@ -1,6 +1,8 @@
 package com.example.curriculumapp.ui.candidato.fragments
 
 import android.os.Bundle
+import android.text.Editable
+import android.text.TextWatcher
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -9,6 +11,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import com.example.curriculumapp.client.candidato.EnderecoClient
 import com.example.curriculumapp.client.candidato.dto.EnderecoDTO
+import com.example.curriculumapp.client.externo.ViaCepClient
 import com.example.curriculumapp.databinding.FragmentEnderecoBinding
 import com.example.curriculumapp.ui.candidato.CurriculoViewModel
 import kotlinx.coroutines.CoroutineScope
@@ -35,6 +38,44 @@ class EnderecoFragment : Fragment() {
         }
 
         binding.btnSave.setOnClickListener { save() }
+
+        setupCepLookup()
+    }
+
+    private fun setupCepLookup() {
+        binding.etCep.addTextChangedListener(object : TextWatcher {
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {}
+            override fun afterTextChanged(s: Editable?) {
+                val cep = s.toString().replace("-", "").trim()
+                if (cep.length == 8) {
+                    buscarEnderecoPorCep(cep)
+                }
+            }
+        })
+    }
+
+    private fun buscarEnderecoPorCep(cep: String) {
+        CoroutineScope(Dispatchers.IO).launch {
+            try {
+                val response = ViaCepClient.api.buscarCep(cep)
+                withContext(Dispatchers.Main) {
+                    if (response.erro == true) {
+                        Toast.makeText(context, "CEP não encontrado", Toast.LENGTH_SHORT).show()
+                    } else {
+                        binding.etRua.setText(response.logradouro)
+                        binding.etBairro.setText(response.bairro)
+                        binding.etCidade.setText(response.localidade)
+                        binding.etEstado.setText(response.uf)
+                        binding.etNumero.requestFocus()
+                    }
+                }
+            } catch (e: Exception) {
+                withContext(Dispatchers.Main) {
+                    Toast.makeText(context, "Erro ao buscar CEP", Toast.LENGTH_SHORT).show()
+                }
+            }
+        }
     }
 
     private fun fillFields(e: EnderecoDTO) {
