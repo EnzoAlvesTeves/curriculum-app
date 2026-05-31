@@ -20,6 +20,9 @@ interface CandidatoApi {
     @GET("api/candidatos/{candidatoId}")
     suspend fun buscarPorId(@Path("candidatoId") candidatoId: Long): CandidatoDTO
 
+    @GET("api/candidatos/me")
+    suspend fun me(): CandidatoDTO
+
     @DELETE("api/candidatos")
     suspend fun deletar()
 }
