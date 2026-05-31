@@ -1,5 +1,6 @@
 package com.example.curriculumapp.ui.vaga
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import android.widget.Toast
@@ -31,7 +32,9 @@ class ListVagasActivity : BaseActivity() {
 
     private fun setupRecyclerView() {
         adapter = VagaAdapter(emptyList()) { vaga ->
-            Toast.makeText(this, "Editar vaga: ${vaga.titulo}", Toast.LENGTH_SHORT).show()
+            val intent = Intent(this, EditVagaActivity::class.java)
+            intent.putExtra("VAGA_DATA", vaga)
+            startActivity(intent)
         }
         binding.rvVagas.layoutManager = LinearLayoutManager(this)
         binding.rvVagas.adapter = adapter
