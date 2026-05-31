@@ -8,6 +8,7 @@ import com.example.curriculumapp.databinding.ItemEmpresaBinding
 
 class EmpresaAdapter(
     private var empresas: List<EmpresaResponse>,
+    private var vagaCounts: Map<Long, Int> = emptyMap(),
     private val onClick: (EmpresaResponse) -> Unit
 ) : RecyclerView.Adapter<EmpresaAdapter.ViewHolder>() {
 
@@ -22,15 +23,18 @@ class EmpresaAdapter(
         val empresa = empresas[position]
         holder.binding.tvNomeEmpresa.text = empresa.nome
         holder.binding.tvLocalizacao.text = "${empresa.cidade} - ${empresa.estado}"
-        holder.binding.tvEstadoBadge.text = empresa.estado
+        
+        val count = vagaCounts[empresa.id] ?: 0
+        holder.binding.tvEstadoBadge.text = "$count ${if (count == 1) "Vaga" else "Vagas"}"
         
         holder.itemView.setOnClickListener { onClick(empresa) }
     }
 
     override fun getItemCount(): Int = empresas.size
 
-    fun updateList(newList: List<EmpresaResponse>) {
+    fun updateData(newList: List<EmpresaResponse>, newCounts: Map<Long, Int>) {
         this.empresas = newList
+        this.vagaCounts = newCounts
         notifyDataSetChanged()
     }
 }

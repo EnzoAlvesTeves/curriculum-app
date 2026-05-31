@@ -1,18 +1,69 @@
 package com.example.curriculumapp.ui.vaga
 
 import android.os.Bundle
-import com.example.curriculumapp.databinding.ActivityPlaceholderBinding
+import android.view.View
+import android.widget.Toast
+import androidx.lifecycle.lifecycleScope
+import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.curriculumapp.client.vaga.EmpresaClient
+import com.example.curriculumapp.client.vaga.VagaClient
+import com.example.curriculumapp.databinding.ActivityListVagasBinding
 import com.example.curriculumapp.ui.base.BaseActivity
+import kotlinx.coroutines.async
+import kotlinx.coroutines.launch
 
 class ListVagasActivity : BaseActivity() {
+
+    private lateinit var binding: ActivityListVagasBinding
+    private lateinit var adapter: VagaAdapter
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        val binding = ActivityPlaceholderBinding.inflate(layoutInflater)
+        binding = ActivityListVagasBinding.inflate(layoutInflater)
         setContentView(binding.root)
-        
+
         setupHeader(binding.header)
         setupDrawer(binding.drawerLayout, binding.navigationView)
-        
-        binding.tvTitle.text = "Minhas Vagas"
+
+        setupRecyclerView()
+        loadData()
+    }
+
+    private fun setupRecyclerView() {
+        adapter = VagaAdapter(emptyList()) { vaga ->
+            Toast.makeText(this, "Editar vaga: ${vaga.titulo}", Toast.LENGTH_SHORT).show()
+        }
+        binding.rvVagas.layoutManager = LinearLayoutManager(this)
+        binding.rvVagas.adapter = adapter
+    }
+
+    private fun loadData() {
+        binding.progressBar.visibility = View.VISIBLE
+        lifecycleScope.launch {
+            try {
+                val vagasDeferred = async { VagaClient.api.buscarMinhasVagasCriadas() }
+                val empresasDeferred = async { EmpresaClient.api.listarTodas() }
+
+                val vagas = vagasDeferred.await()
+                val empresas = empresasDeferred.await()
+
+                val empresaMap = empresas.associate { 
+                    (it.id ?: 0L) to (it.nome ?: "Empresa sem nome") 
+                }
+
+                // Currently there is no API to get candidate counts per vacancy.
+                // You can add logic here once that API is available.
+                adapter.updateData(vagas, empresaMap)
+            } catch (e: Exception) {
+                Toast.makeText(this@ListVagasActivity, "Erro ao carregar dados: ${e.message}", Toast.LENGTH_SHORT).show()
+            } finally {
+                binding.progressBar.visibility = View.GONE
+            }
+        }
+    }
+
+    override fun onResume() {
+        super.onResume()
+        loadData()
     }
 }

@@ -7,8 +7,10 @@ import android.widget.Toast
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.curriculumapp.client.vaga.EmpresaClient
+import com.example.curriculumapp.client.vaga.VagaClient
 import com.example.curriculumapp.databinding.ActivityListEmpresasBinding
 import com.example.curriculumapp.ui.base.BaseActivity
+import kotlinx.coroutines.async
 import kotlinx.coroutines.launch
 
 class ListEmpresasActivity : BaseActivity() {
@@ -25,7 +27,7 @@ class ListEmpresasActivity : BaseActivity() {
         setupDrawer(binding.drawerLayout, binding.navigationView)
 
         setupRecyclerView()
-        loadEmpresas()
+        loadData()
     }
 
     private fun setupRecyclerView() {
@@ -38,14 +40,25 @@ class ListEmpresasActivity : BaseActivity() {
         binding.rvEmpresas.adapter = adapter
     }
 
-    private fun loadEmpresas() {
+    private fun loadData() {
         binding.progressBar.visibility = View.VISIBLE
         lifecycleScope.launch {
             try {
-                val empresas = EmpresaClient.api.listarTodas()
-                adapter.updateList(empresas)
+                // Fetch companies and vacancies in parallel
+                val empresasDeferred = async { EmpresaClient.api.listarTodas() }
+                val vagasDeferred = async { VagaClient.api.buscarMinhasVagasCriadas() }
+
+                val empresas = empresasDeferred.await()
+                val vagas = vagasDeferred.await()
+
+                // Calculate vacancy counts per company
+                val countsMap = vagas.filter { it.idEmpresa != null }
+                    .groupBy { it.idEmpresa!! }
+                    .mapValues { it.value.size }
+
+                adapter.updateData(empresas, countsMap)
             } catch (e: Exception) {
-                Toast.makeText(this@ListEmpresasActivity, "Erro ao carregar empresas: ${e.message}", Toast.LENGTH_SHORT).show()
+                Toast.makeText(this@ListEmpresasActivity, "Erro ao carregar dados: ${e.message}", Toast.LENGTH_SHORT).show()
             } finally {
                 binding.progressBar.visibility = View.GONE
             }
@@ -54,6 +67,6 @@ class ListEmpresasActivity : BaseActivity() {
 
     override fun onResume() {
         super.onResume()
-        loadEmpresas()
+        loadData()
     }
 }
