@@ -7,8 +7,6 @@ import okhttp3.Authenticator
 import okhttp3.Request
 import okhttp3.Response
 import okhttp3.Route
-import retrofit2.Retrofit
-import retrofit2.converter.gson.GsonConverterFactory
 
 class TokenAuthenticator : Authenticator {
 
@@ -26,11 +24,8 @@ class TokenAuthenticator : Authenticator {
                     .build()
             }
 
-            val authApi = Retrofit.Builder()
-                .baseUrl("http://10.0.2.2:8000/ms-usuarios/")
-                .addConverterFactory(GsonConverterFactory.create())
-                .build()
-                .create(AuthApi::class.java)
+            // Using buildRetrofit to get the dynamic URL for refresh
+            val authApi = NetworkConfig.buildRetrofit("ms-usuarios").create(AuthApi::class.java)
 
             val refreshCall = authApi.refreshSync(AuthRefreshTokenRequest(refreshToken))
             val result = try {

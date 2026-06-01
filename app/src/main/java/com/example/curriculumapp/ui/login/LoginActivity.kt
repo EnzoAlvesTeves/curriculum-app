@@ -2,7 +2,10 @@ package com.example.curriculumapp.ui.login
 
 import android.content.Intent
 import android.os.Bundle
+import android.view.View
+import android.widget.EditText
 import android.widget.Toast
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
 import com.example.curriculumapp.CurriculumApplication
@@ -10,13 +13,12 @@ import com.example.curriculumapp.MainActivity
 import com.example.curriculumapp.client.usuario.AuthClient
 import com.example.curriculumapp.client.usuario.dto.AuthLoginRequest
 import com.example.curriculumapp.databinding.ActivityLoginBinding
-import com.example.curriculumapp.util.TokenManager
 import com.example.curriculumapp.ui.forgotpassword.ForgotPasswordActivity
 import com.example.curriculumapp.ui.signup.SignUpActivity
+import com.example.curriculumapp.util.TokenManager
 import kotlinx.coroutines.launch
 
 class LoginActivity : AppCompatActivity() {
-// ... (omitted lines for brevity if I were doing partial, but I'll do a focused replace)
 
     private lateinit var binding: ActivityLoginBinding
     private val tokenManager: TokenManager by lazy { CurriculumApplication.instance.tokenManager }
@@ -50,9 +52,44 @@ class LoginActivity : AppCompatActivity() {
         binding.tvForgotPassword.setOnClickListener {
             startActivity(Intent(this, ForgotPasswordActivity::class.java))
         }
+
+        binding.btnSettings.setOnClickListener {
+            showUrlSettingsDialog()
+        }
+    }
+
+    private fun showUrlSettingsDialog() {
+        val urlManager = CurriculumApplication.instance.urlManager
+        val input = EditText(this)
+        input.setText(urlManager.getBaseHost())
+        input.setHint("Ex: http://ngrok-url.app")
+        
+        val padding = (16 * resources.displayMetrics.density).toInt()
+        input.setPadding(padding, padding, padding, padding)
+
+        AlertDialog.Builder(this)
+            .setTitle("Configurar Base URL")
+            .setMessage("Digite a URL base do seu servidor (ngrok):")
+            .setView(input)
+            .setPositiveButton("Salvar") { _, _ ->
+                val newUrl = input.text.toString().trim()
+                if (newUrl.isNotEmpty()) {
+                    urlManager.saveBaseHost(newUrl)
+                    Toast.makeText(this, "URL atualizada! Reiniciando...", Toast.LENGTH_SHORT).show()
+                    
+                    // Restart to apply lazy client changes
+                    val intent = Intent(this, LoginActivity::class.java)
+                    intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK)
+                    startActivity(intent)
+                    Runtime.getRuntime().exit(0)
+                }
+            }
+            .setNegativeButton("Cancelar", null)
+            .show()
     }
 
     private fun login(email: String, password: String) {
+        binding.loading.visibility = View.VISIBLE
         lifecycleScope.launch {
             try {
                 val request = AuthLoginRequest(username = email, senha = password)
@@ -68,6 +105,8 @@ class LoginActivity : AppCompatActivity() {
                 }
             } catch (e: Exception) {
                 Toast.makeText(this@LoginActivity, "Erro: ${e.message}", Toast.LENGTH_SHORT).show()
+            } finally {
+                binding.loading.visibility = View.GONE
             }
         }
     }

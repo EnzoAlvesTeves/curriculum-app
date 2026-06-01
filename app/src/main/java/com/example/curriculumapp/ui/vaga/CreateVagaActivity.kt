@@ -1,6 +1,7 @@
 package com.example.curriculumapp.ui.vaga
 
 import android.os.Bundle
+import android.view.View
 import android.widget.ArrayAdapter
 import android.widget.Toast
 import androidx.lifecycle.lifecycleScope
@@ -36,6 +37,7 @@ class CreateVagaActivity : BaseActivity() {
     }
 
     private fun loadEmpresas() {
+        binding.loading.visibility = View.VISIBLE
         lifecycleScope.launch {
             try {
                 empresasList = EmpresaClient.api.listarTodas()
@@ -48,6 +50,8 @@ class CreateVagaActivity : BaseActivity() {
                 }
             } catch (e: Exception) {
                 Toast.makeText(this@CreateVagaActivity, "Erro ao carregar empresas", Toast.LENGTH_SHORT).show()
+            } finally {
+                binding.loading.visibility = View.GONE
             }
         }
     }
@@ -81,6 +85,7 @@ class CreateVagaActivity : BaseActivity() {
     }
 
     private fun saveVaga(request: CreateVagaRequest) {
+        binding.loading.visibility = View.VISIBLE
         lifecycleScope.launch {
             try {
                 VagaClient.api.criar(request)
@@ -88,6 +93,8 @@ class CreateVagaActivity : BaseActivity() {
                 finish()
             } catch (e: Exception) {
                 Toast.makeText(this@CreateVagaActivity, "Erro ao cadastrar vaga: ${e.message}", Toast.LENGTH_SHORT).show()
+            } finally {
+                binding.loading.visibility = View.GONE
             }
         }
     }

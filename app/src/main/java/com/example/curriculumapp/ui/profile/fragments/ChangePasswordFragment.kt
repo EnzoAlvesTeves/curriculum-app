@@ -38,6 +38,7 @@ class ChangePasswordFragment : Fragment() {
         }
 
         val request = AlterarSenhaRequest(current, new)
+        binding.loading.visibility = View.VISIBLE
         lifecycleScope.launch {
             try {
                 UsuarioClient.api.alterarSenha(request)
@@ -46,6 +47,8 @@ class ChangePasswordFragment : Fragment() {
                 binding.etNewPassword.text?.clear()
             } catch (e: Exception) {
                 Toast.makeText(context, "Erro ao alterar senha", Toast.LENGTH_SHORT).show()
+            } finally {
+                binding.loading.visibility = View.GONE
             }
         }
     }

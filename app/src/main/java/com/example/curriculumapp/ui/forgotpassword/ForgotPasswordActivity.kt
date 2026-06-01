@@ -1,6 +1,7 @@
 package com.example.curriculumapp.ui.forgotpassword
 
 import android.os.Bundle
+import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
@@ -51,6 +52,7 @@ class ForgotPasswordActivity : AppCompatActivity() {
     }
 
     private fun changePassword(request: AlterarSenhaPorUsernameRequest) {
+        binding.loading.visibility = View.VISIBLE
         lifecycleScope.launch {
             try {
                 UsuarioClient.api.alterarSenhaPorEmail(request)
@@ -58,6 +60,8 @@ class ForgotPasswordActivity : AppCompatActivity() {
                 finish()
             } catch (e: Exception) {
                 Toast.makeText(this@ForgotPasswordActivity, "Erro ao alterar senha: ${e.message}", Toast.LENGTH_SHORT).show()
+            } finally {
+                binding.loading.visibility = View.GONE
             }
         }
     }

@@ -1,6 +1,7 @@
 package com.example.curriculumapp.ui.empresa
 
 import android.os.Bundle
+import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.lifecycle.lifecycleScope
@@ -72,6 +73,7 @@ class EditEmpresaActivity : BaseActivity() {
     }
 
     private fun updateEmpresa(id: Long, request: UpdateEmpresaRequest) {
+        binding.loading.visibility = View.VISIBLE
         lifecycleScope.launch {
             try {
                 EmpresaClient.api.atualizar(id, request)
@@ -79,6 +81,8 @@ class EditEmpresaActivity : BaseActivity() {
                 finish()
             } catch (e: Exception) {
                 Toast.makeText(this@EditEmpresaActivity, "Erro ao atualizar: ${e.message}", Toast.LENGTH_SHORT).show()
+            } finally {
+                binding.loading.visibility = View.GONE
             }
         }
     }
@@ -94,6 +98,7 @@ class EditEmpresaActivity : BaseActivity() {
 
     private fun deleteEmpresa() {
         val id = empresaId ?: return
+        binding.loading.visibility = View.VISIBLE
         lifecycleScope.launch {
             try {
                 EmpresaClient.api.deletar(id)
@@ -101,6 +106,8 @@ class EditEmpresaActivity : BaseActivity() {
                 finish()
             } catch (e: Exception) {
                 Toast.makeText(this@EditEmpresaActivity, "Erro ao remover: ${e.message}", Toast.LENGTH_SHORT).show()
+            } finally {
+                binding.loading.visibility = View.GONE
             }
         }
     }

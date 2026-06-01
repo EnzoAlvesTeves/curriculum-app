@@ -1,6 +1,7 @@
 package com.example.curriculumapp.ui.vaga
 
 import android.os.Bundle
+import android.view.View
 import android.widget.ArrayAdapter
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
@@ -59,9 +60,9 @@ class EditVagaActivity : BaseActivity() {
     }
 
     private fun loadEmpresas() {
+        binding.loading.visibility = View.VISIBLE
         lifecycleScope.launch {
             try {
-                String
                 empresasList = EmpresaClient.api.listarTodas()
                 val names = empresasList.map { it.nome ?: "Sem nome" }
                 val adapter = ArrayAdapter(this@EditVagaActivity, android.R.layout.simple_dropdown_item_1line, names)
@@ -78,6 +79,8 @@ class EditVagaActivity : BaseActivity() {
                 }
             } catch (e: Exception) {
                 Toast.makeText(this@EditVagaActivity, "Erro ao carregar empresas", Toast.LENGTH_SHORT).show()
+            } finally {
+                binding.loading.visibility = View.GONE
             }
         }
     }
@@ -107,6 +110,7 @@ class EditVagaActivity : BaseActivity() {
     }
 
     private fun updateVaga(id: Long, request: UpdateVagaRequest) {
+        binding.loading.visibility = View.VISIBLE
         lifecycleScope.launch {
             try {
                 VagaClient.api.atualizar(id, request)
@@ -114,6 +118,8 @@ class EditVagaActivity : BaseActivity() {
                 finish()
             } catch (e: Exception) {
                 Toast.makeText(this@EditVagaActivity, "Erro ao atualizar: ${e.message}", Toast.LENGTH_SHORT).show()
+            } finally {
+                binding.loading.visibility = View.GONE
             }
         }
     }
@@ -129,6 +135,7 @@ class EditVagaActivity : BaseActivity() {
 
     private fun deleteVaga() {
         val id = vagaId ?: return
+        binding.loading.visibility = View.VISIBLE
         lifecycleScope.launch {
             try {
                 VagaClient.api.deletar(id)
@@ -136,6 +143,8 @@ class EditVagaActivity : BaseActivity() {
                 finish()
             } catch (e: Exception) {
                 Toast.makeText(this@EditVagaActivity, "Erro ao remover: ${e.message}", Toast.LENGTH_SHORT).show()
+            } finally {
+                binding.loading.visibility = View.GONE
             }
         }
     }

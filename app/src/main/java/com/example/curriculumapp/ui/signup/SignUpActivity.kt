@@ -1,6 +1,7 @@
 package com.example.curriculumapp.ui.signup
 
 import android.os.Bundle
+import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
@@ -61,6 +62,7 @@ class SignUpActivity : AppCompatActivity() {
     }
 
     private fun signUp(request: CreateUsuarioRequest) {
+        binding.loading.visibility = View.VISIBLE
         lifecycleScope.launch {
             try {
                 UsuarioClient.api.criar(request)
@@ -68,6 +70,8 @@ class SignUpActivity : AppCompatActivity() {
                 finish() // Voltar para o login
             } catch (e: Exception) {
                 Toast.makeText(this@SignUpActivity, "Erro ao cadastrar: ${e.message}", Toast.LENGTH_SHORT).show()
+            } finally {
+                binding.loading.visibility = View.GONE
             }
         }
     }

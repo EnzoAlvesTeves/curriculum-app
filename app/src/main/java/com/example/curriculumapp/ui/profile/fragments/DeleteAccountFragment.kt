@@ -55,6 +55,7 @@ class DeleteAccountFragment : Fragment() {
 
     private fun deleteAccount() {
         val id = userId ?: return
+        binding.loading.visibility = View.VISIBLE
         lifecycleScope.launch {
             try {
                 UsuarioClient.api.deletar(id)
@@ -62,6 +63,8 @@ class DeleteAccountFragment : Fragment() {
                 logout()
             } catch (e: Exception) {
                 Toast.makeText(context, "Erro ao deletar conta", Toast.LENGTH_SHORT).show()
+            } finally {
+                binding.loading.visibility = View.GONE
             }
         }
     }

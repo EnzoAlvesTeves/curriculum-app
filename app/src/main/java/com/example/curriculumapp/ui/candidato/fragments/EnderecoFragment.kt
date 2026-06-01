@@ -56,6 +56,7 @@ class EnderecoFragment : Fragment() {
     }
 
     private fun buscarEnderecoPorCep(cep: String) {
+        binding.loading.visibility = View.VISIBLE
         CoroutineScope(Dispatchers.IO).launch {
             try {
                 val response = ViaCepClient.api.buscarCep(cep)
@@ -73,6 +74,10 @@ class EnderecoFragment : Fragment() {
             } catch (e: Exception) {
                 withContext(Dispatchers.Main) {
                     Toast.makeText(context, "Erro ao buscar CEP", Toast.LENGTH_SHORT).show()
+                }
+            } finally {
+                withContext(Dispatchers.Main) {
+                    binding.loading.visibility = View.GONE
                 }
             }
         }
@@ -102,10 +107,9 @@ class EnderecoFragment : Fragment() {
             estado = binding.etEstado.text.toString()
         )
 
+        binding.loading.visibility = View.VISIBLE
         CoroutineScope(Dispatchers.IO).launch {
             try {
-                // Here we call EnderecoApi.alterar or criar. 
-                // Since the API uses candidatoId as path, let's use alterar/criar logic
                 val result = if (currentCandidato.endereco?.id != null) {
                     EnderecoClient.api.alterar(candidatoId, updatedEndereco)
                 } else {
@@ -120,6 +124,10 @@ class EnderecoFragment : Fragment() {
             } catch (e: Exception) {
                 withContext(Dispatchers.Main) {
                     Toast.makeText(context, "Erro ao salvar endereço: ${e.message}", Toast.LENGTH_SHORT).show()
+                }
+            } finally {
+                withContext(Dispatchers.Main) {
+                    binding.loading.visibility = View.GONE
                 }
             }
         }
