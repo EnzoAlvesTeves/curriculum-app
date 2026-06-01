@@ -1,31 +1,82 @@
 package com.example.curriculumapp.util.pdf
 
-import android.content.ContentValues
 import android.content.Context
 import android.graphics.Canvas
 import android.graphics.Color
 import android.graphics.Paint
 import android.graphics.Typeface
 import android.graphics.pdf.PdfDocument
-import android.os.Build
-import android.os.Environment
-import android.provider.MediaStore
-import android.widget.Toast
+import android.os.Bundle
+import android.os.CancellationSignal
+import android.os.ParcelFileDescriptor
+import android.print.PageRange
+import android.print.PrintAttributes
+import android.print.PrintDocumentAdapter
+import android.print.PrintDocumentInfo
+import android.print.PrintManager
 import com.example.curriculumapp.client.candidato.dto.CandidatoDTO
-import java.io.File
 import java.io.FileOutputStream
-import java.io.OutputStream
+import java.io.IOException
 
 object PdfGenerator {
 
-    fun generateCurriculumPdf(context: Context, candidato: CandidatoDTO) {
-        val pdfDocument = PdfDocument()
-        val pageInfo = PdfDocument.PageInfo.Builder(595, 842, 1).create() // A4 Size
-        val page = pdfDocument.startPage(pageInfo)
-        val canvas: Canvas = page.canvas
+    fun printCurriculumPdf(context: Context, candidato: CandidatoDTO) {
+        val printManager = context.getSystemService(Context.PRINT_SERVICE) as PrintManager
+        val jobName = "Curriculo_${candidato.nome?.replace(" ", "_")}"
+
+        printManager.print(jobName, object : PrintDocumentAdapter() {
+            override fun onLayout(
+                oldAttributes: PrintAttributes?,
+                newAttributes: PrintAttributes?,
+                cancellationSignal: CancellationSignal?,
+                callback: LayoutResultCallback?,
+                extras: Bundle?
+            ) {
+                if (cancellationSignal?.isCanceled == true) {
+                    callback?.onLayoutCancelled()
+                    return
+                }
+
+                val pdi = PrintDocumentInfo.Builder(jobName)
+                    .setContentType(PrintDocumentInfo.CONTENT_TYPE_DOCUMENT)
+                    .setPageCount(1) // Por enquanto simplificado para 1 página
+                    .build()
+
+                callback?.onLayoutFinished(pdi, true)
+            }
+
+            override fun onWrite(
+                pages: Array<out PageRange>?,
+                destination: ParcelFileDescriptor?,
+                cancellationSignal: CancellationSignal?,
+                callback: WriteResultCallback?
+            ) {
+                val pdfDocument = PdfDocument()
+                val pageInfo = PdfDocument.PageInfo.Builder(595, 842, 1).create()
+                val page = pdfDocument.startPage(pageInfo)
+                
+                // Desenha o conteúdo no canvas do PDF
+                drawCurriculumContent(page.canvas, candidato)
+                
+                pdfDocument.finishPage(page)
+
+                try {
+                    pdfDocument.writeTo(FileOutputStream(destination?.fileDescriptor))
+                } catch (e: IOException) {
+                    callback?.onWriteFailed(e.toString())
+                    return
+                } finally {
+                    pdfDocument.close()
+                }
+
+                callback?.onWriteFinished(arrayOf(PageRange.ALL_PAGES))
+            }
+        }, null)
+    }
+
+    private fun drawCurriculumContent(canvas: Canvas, candidato: CandidatoDTO) {
         val paint = Paint()
         val titlePaint = Paint()
-
         var y = 50f
         val x = 50f
 
@@ -51,7 +102,7 @@ object PdfGenerator {
         if (!candidato.resumoProfissional.isNullOrEmpty()) {
             drawSectionTitle(canvas, "RESUMO PROFISSIONAL", x, y)
             y += 20f
-            y = drawMultilineText(canvas, candidato.resumoProfissional, x, y, 500f)
+            y = drawMultilineText(canvas, candidato.resumoProfissional!!, x, y, 500f)
             y += 30f
         }
 
@@ -82,7 +133,7 @@ object PdfGenerator {
                 canvas.drawText("${exp.empresa} (${exp.dataInicio} - ${exp.dataFim})", x, y, paint)
                 y += 15f
                 if (!exp.resumo.isNullOrEmpty()) {
-                    y = drawMultilineText(canvas, exp.resumo, x + 10f, y, 480f)
+                    y = drawMultilineText(canvas, exp.resumo!!, x + 10f, y, 480f)
                 }
                 y += 20f
             }
@@ -94,40 +145,6 @@ object PdfGenerator {
             y += 20f
             val skills = candidato.habilidades.joinToString(", ") { "${it.descricao} (${it.nivel})" }
             drawMultilineText(canvas, skills, x, y, 500f)
-        }
-
-        pdfDocument.finishPage(page)
-
-        val fileName = "Curriculo_${candidato.nome?.replace(" ", "_")}.pdf"
-        saveToDownloads(context, pdfDocument, fileName)
-    }
-
-    private fun saveToDownloads(context: Context, pdfDocument: PdfDocument, fileName: String) {
-        try {
-            val outputStream: OutputStream?
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
-                val resolver = context.contentResolver
-                val contentValues = ContentValues().apply {
-                    put(MediaStore.MediaColumns.DISPLAY_NAME, fileName)
-                    put(MediaStore.MediaColumns.MIME_TYPE, "application/pdf")
-                    put(MediaStore.MediaColumns.RELATIVE_PATH, Environment.DIRECTORY_DOWNLOADS)
-                }
-                val uri = resolver.insert(MediaStore.Downloads.EXTERNAL_CONTENT_URI, contentValues)
-                outputStream = uri?.let { resolver.openOutputStream(it) }
-            } else {
-                val downloadsDir = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS)
-                val file = File(downloadsDir, fileName)
-                outputStream = FileOutputStream(file)
-            }
-
-            outputStream?.use {
-                pdfDocument.writeTo(it)
-                Toast.makeText(context, "PDF salvo na pasta Downloads", Toast.LENGTH_LONG).show()
-            }
-        } catch (e: Exception) {
-            Toast.makeText(context, "Erro ao salvar PDF: ${e.message}", Toast.LENGTH_SHORT).show()
-        } finally {
-            pdfDocument.close()
         }
     }
 

@@ -27,7 +27,7 @@ class CurriculoActivity : BaseActivity() {
 
         binding.btnExportPdf.setOnClickListener {
             viewModel.candidato.value?.let { candidato ->
-                PdfGenerator.generateCurriculumPdf(this, candidato)
+                PdfGenerator.printCurriculumPdf(this, candidato)
             } ?: run {
                 Toast.makeText(this, "Carregue os dados do currículo primeiro", Toast.LENGTH_SHORT).show()
             }
