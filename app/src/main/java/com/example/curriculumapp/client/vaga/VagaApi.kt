@@ -16,6 +16,9 @@ interface VagaApi {
     @POST("api/vagas")
     suspend fun criar(@Body request: CreateVagaRequest): VagaResponse
 
+    @GET("api/vagas")
+    suspend fun listar(): List<VagaResponse>
+
     @PUT("api/vagas/{id}")
     suspend fun atualizar(@Path("id") id: Long, @Body request: UpdateVagaRequest): VagaResponse
 
