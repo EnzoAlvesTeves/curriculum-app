@@ -1,5 +1,6 @@
 package com.example.curriculumapp.client.vaga
 
+import com.example.curriculumapp.client.usuario.dto.UsuarioResponse
 import com.example.curriculumapp.client.vaga.dto.CandidaturaResponse
 import com.example.curriculumapp.client.vaga.dto.CreateVagaRequest
 import com.example.curriculumapp.client.vaga.dto.UpdateVagaRequest
@@ -40,4 +41,6 @@ interface VagaApi {
     @GET("api/vagas/minhas-candidaturas")
     suspend fun buscarMinhasCandidaturas(): List<VagaResponse>
 
+    @GET("api/vagas/{idVaga}/candidatos")
+    suspend fun listarCandidatos(@Path("idVaga") idVaga: Long): List<UsuarioResponse>
 }

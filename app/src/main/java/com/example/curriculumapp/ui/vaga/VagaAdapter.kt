@@ -10,6 +10,7 @@ class VagaAdapter(
     private var vagas: List<VagaResponse>,
     private var empresaNames: Map<Long, String> = emptyMap(),
     private var candidatoCounts: Map<Long, Int> = emptyMap(),
+    private val onBadgeClick: ((VagaResponse) -> Unit)? = null,
     private val onClick: (VagaResponse) -> Unit
 ) : RecyclerView.Adapter<VagaAdapter.ViewHolder>() {
 
@@ -30,6 +31,10 @@ class VagaAdapter(
         
         val count = candidatoCounts[vaga.id] ?: 0
         holder.binding.tvCandidatosBadge.text = "$count ${if (count == 1) "Candidato" else "Candidatos"}"
+        
+        holder.binding.tvCandidatosBadge.setOnClickListener {
+            onBadgeClick?.invoke(vaga)
+        }
         
         holder.itemView.setOnClickListener { onClick(vaga) }
     }

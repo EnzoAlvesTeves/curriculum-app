@@ -31,7 +31,17 @@ class ListVagasActivity : BaseActivity() {
     }
 
     private fun setupRecyclerView() {
-        adapter = VagaAdapter(emptyList()) { vaga ->
+        adapter = VagaAdapter(
+            emptyList(),
+            emptyMap(),
+            emptyMap(),
+            onBadgeClick = { vaga ->
+                val intent = Intent(this, CandidatosVagaActivity::class.java)
+                intent.putExtra("VAGA_ID", vaga.id)
+                intent.putExtra("VAGA_TITULO", vaga.titulo)
+                startActivity(intent)
+            }
+        ) { vaga ->
             val intent = Intent(this, EditVagaActivity::class.java)
             intent.putExtra("VAGA_DATA", vaga)
             startActivity(intent)
@@ -54,9 +64,17 @@ class ListVagasActivity : BaseActivity() {
                     (it.id ?: 0L) to (it.nome ?: "Empresa sem nome") 
                 }
 
-                // Currently there is no API to get candidate counts per vacancy.
-                // You can add logic here once that API is available.
-                adapter.updateData(vagas, empresaMap)
+                // Fetch candidate counts for each vacancy in parallel
+                val countsMap = vagas.associate { vaga ->
+                    val count = try {
+                        if (vaga.id != null) {
+                            VagaClient.api.listarCandidatos(vaga.id).size
+                        } else 0
+                    } catch (e: Exception) { 0 }
+                    (vaga.id ?: 0L) to count
+                }
+
+                adapter.updateData(vagas, empresaMap, countsMap)
             } catch (e: Exception) {
                 Toast.makeText(this@ListVagasActivity, "Erro ao carregar dados: ${e.message}", Toast.LENGTH_SHORT).show()
             } finally {

@@ -61,6 +61,10 @@
             android:exported="false" />
 
         <activity
+            android:name=".ui.vaga.CandidatosVagaActivity"
+            android:exported="false" />
+
+        <activity
             android:name=".ui.candidato.VagasPublicasActivity"
             android:exported="false" />
 
