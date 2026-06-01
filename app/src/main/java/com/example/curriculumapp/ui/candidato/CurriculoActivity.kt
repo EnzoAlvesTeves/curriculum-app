@@ -2,10 +2,12 @@ package com.example.curriculumapp.ui.candidato
 
 import android.os.Bundle
 import android.view.View
+import android.widget.Toast
 import androidx.activity.viewModels
 import com.example.curriculumapp.R
 import com.example.curriculumapp.databinding.ActivityCurriculoBinding
 import com.example.curriculumapp.ui.base.BaseActivity
+import com.example.curriculumapp.util.pdf.PdfGenerator
 import com.google.android.material.tabs.TabLayoutMediator
 
 class CurriculoActivity : BaseActivity() {
@@ -22,6 +24,14 @@ class CurriculoActivity : BaseActivity() {
         setupDrawer(binding.drawerLayout, binding.navigationView)
 
         binding.btnBack.setOnClickListener { finish() }
+
+        binding.btnExportPdf.setOnClickListener {
+            viewModel.candidato.value?.let { candidato ->
+                PdfGenerator.generateCurriculumPdf(this, candidato)
+            } ?: run {
+                Toast.makeText(this, "Carregue os dados do currículo primeiro", Toast.LENGTH_SHORT).show()
+            }
+        }
 
         setupViewPager()
         observeViewModel()
