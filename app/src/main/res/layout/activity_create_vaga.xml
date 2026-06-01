@@ -81,8 +81,7 @@
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:layout_marginTop="8dp"
-                                android:layout_marginBottom="16dp"
-                                app:hintEnabled="false">
+                                android:layout_marginBottom="16dp">
 
                                 <AutoCompleteTextView
                                     android:id="@+id/spinnerEmpresa"

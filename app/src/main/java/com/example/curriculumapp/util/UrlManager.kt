@@ -2,6 +2,7 @@ package com.example.curriculumapp.util
 
 import android.content.Context
 import android.content.SharedPreferences
+import androidx.core.content.edit
 
 class UrlManager(context: Context) {
     private val prefs: SharedPreferences =
@@ -20,6 +21,10 @@ class UrlManager(context: Context) {
 
     fun saveBaseHost(host: String) {
         val sanitizedHost = if (host.endsWith("/")) host.removeSuffix("/") else host
-        prefs.edit().putString(KEY_BASE_HOST, sanitizedHost).apply()
+        prefs.edit {
+            putString(KEY_BASE_HOST, sanitizedHost)
+        }
+        // Clear all cached API clients so they are recreated with the new base URL
+        ClientManager.clearClients()
     }
 }

@@ -75,13 +75,7 @@ class LoginActivity : AppCompatActivity() {
                 val newUrl = input.text.toString().trim()
                 if (newUrl.isNotEmpty()) {
                     urlManager.saveBaseHost(newUrl)
-                    Toast.makeText(this, "URL atualizada! Reiniciando...", Toast.LENGTH_SHORT).show()
-                    
-                    // Restart to apply lazy client changes
-                    val intent = Intent(this, LoginActivity::class.java)
-                    intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK)
-                    startActivity(intent)
-                    Runtime.getRuntime().exit(0)
+                    Toast.makeText(this, "URL atualizada com sucesso!", Toast.LENGTH_SHORT).show()
                 }
             }
             .setNegativeButton("Cancelar", null)
