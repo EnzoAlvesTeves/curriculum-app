@@ -45,6 +45,42 @@
     <string name="vagas">Vagas</string>
     <string name="curriculo">Currículo</string>
     <string name="minhas_candidaturas">Minhas Candidaturas</string>
+    <string name="perfil">Perfil</string>
+    <string name="candidatos">Candidatos</string>
+
+    <!-- Home strings -->
+    <string name="wisecorp">WiseCorp</string>
+    <string name="home_hero_title">Construa sua carreira conosco.</string>
+    <string name="home_hero_desc">Encontre as melhores oportunidades no mercado e conecte-se com empresas inovadoras que buscam o seu talento.</string>
+    <string name="home_btn_vagas">Ver Vagas</string>
+    <string name="home_why_title">Por que nos escolher?</string>
+    <string name="home_why_1_title">Oportunidades Exclusivas</string>
+    <string name="home_why_1_desc">Acesse vagas que você não encontra em nenhum outro lugar.</string>
+    <string name="home_why_2_title">Processos Ágeis</string>
+    <string name="home_why_2_desc">Candidaturas rápidas e feedback direto das empresas.</string>
+    <string name="home_why_3_title">Match Inteligente</string>
+    <string name="home_why_3_desc">Nosso algoritmo conecta seu perfil às vagas ideais.</string>
+    <string name="home_why_4_title">Suporte ao Candidato</string>
+    <string name="home_why_4_desc">Dicas e ferramentas para melhorar seu currículo.</string>
+    <string name="home_why_5_title">Grandes Empresas</string>
+    <string name="home_why_5_desc">Trabalhe nas marcas mais admiradas do mercado.</string>
+    <string name="home_why_6_title">Gratuito</string>
+    <string name="home_why_6_desc">Busque vagas e envie seu currículo sem custos.</string>
+    <string name="home_how_title">Como funciona?</string>
+    <string name="step_1">1</string>
+    <string name="home_how_1_title">Crie seu Perfil</string>
+    <string name="home_how_1_desc">Cadastre seus dados, experiências e habilidades.</string>
+    <string name="step_2">2</string>
+    <string name="home_how_2_title">Encontre Vagas</string>
+    <string name="home_how_2_desc">Utilize nossos filtros para achar a vaga perfeita.</string>
+    <string name="step_3">3</string>
+    <string name="home_how_3_title">Candidate-se</string>
+    <string name="home_how_3_desc">Envie seu currículo com apenas um clique.</string>
+    <string name="home_footer_banner_title">Pronto para o próximo passo?</string>
+    <string name="home_footer_banner_desc">Milhares de vagas esperam por você hoje.</string>
+    <string name="home_btn_explorar">Explorar Vagas</string>
+    <string name="home_copyright">© 2024 WiseCorp. Todos os direitos reservados.</string>
+
     <string name="estado">Estado</string>
     <string name="hint_estado">Digite o estado (UF)</string>
     <string name="cidade">Cidade</string>
